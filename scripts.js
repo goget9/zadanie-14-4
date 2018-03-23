@@ -5,7 +5,7 @@ var MoviesList = React.createClass({
 
 	render: function() {
 		var movieList = this.props.movie.map(function(movies) {
-			return React.createElement(Movie, {item: movies, key: movies.id});
+			return React.createElement(Movie, {item: movies, key: movies.id})
 		});
 
 		return (
@@ -16,35 +16,79 @@ var MoviesList = React.createClass({
 
 var Movie = React.createClass({
 	propTypes: {
-		item: React.PropTypes.array.isRequired,
+		item: React.PropTypes.object.isRequired,
 	},
 
 	render: function() {
 		return (
 			React.createElement('li', {},
-				React.createElement('h1', {}, this.props.item.title),
-				React.createElement('p', {}, this.props.item.desc),
-				React.createElement('p', {}, this.props.item.imdb),
-				React.createElement('img', {src: this.props.item.poster})
+				React.createElement(MovieTitle, {title: this.props.item}),
+				React.createElement(MovieDescription, {description: this.props.item}),
+				React.createElement(MovieImdb, {imdb: this.props.item}),
+				React.createElement(MoviePoster, {poster: this.props.item}),	
 			)
 		)
+	},
+});
+var MovieTitle = React.createClass({
+	propTypes: {
+		title: React.PropTypes.object.isRequired,
+	},
+
+	render: function() {
+		return React.createElement('h1', {}, 'Movie Title: ' + this.props.title.title)
+	},
+});
+var MovieDescription = React.createClass({
+	propTypes: {
+		description: React.PropTypes.object.isRequired,
+	},
+
+	render: function() {
+		return React.createElement('p', {}, 'Movie Description: ' + this.props.description.desc)
+	},
+});
+var MovieImdb = React.createClass({
+	propTypes: {
+		imdb: React.PropTypes.object.isRequired,
+	},
+
+	render: function() {
+		return React.createElement('p', {}, 'Movie IMDB Rating: ' + this.props.imdb.imdb)
+	},
+});
+var MoviePoster = React.createClass({
+	propTypes: {
+		poster: React.PropTypes.object.isRequired,
+	},
+
+	render: function() {
+		return React.createElement('img', {src: this.props.poster.poster})
 	},
 });
 
 var movies = [
 	{
 		id: 1,
-		title: 'harry potter',
+		title: 'Harry Potter',
 		desc: 'film o czarodzieju',
 		imdb: '7,8',
 		poster: 'hp.png'
 	},
 	{
 		id: 2,
-		title: 'harry potter',
-		desc: 'film o czarodzieju',
+		title: 'Bekarty Wojny',
+		desc: 'film o gosciach w czasie 2 wojny swiatowej',
 		imdb: '7,8',
-		poster: 'hp.png'
+		poster: 'bw.png'
+
+	},
+	{
+		id: 3,
+		title: 'Interstaller',
+		desc: 'film o gosciu w czasie',
+		imdb: '9.0',
+		poster: 'is.png'
 
 	}
 ];
